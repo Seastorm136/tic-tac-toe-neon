@@ -51,32 +51,3 @@ Khi có nhiều nước tốt ngang nhau, AI chọn ngẫu nhiên một nước 
 
 > Mỗi ván chỉ được ghi thống kê **một lần**: thua rồi bấm Đi lại để thắng lại thì vẫn tính là thua 😉
 
-## Đưa game lên mạng để chia sẻ
-
-Game chỉ gồm file tĩnh nên có thể dùng bất kỳ dịch vụ hosting tĩnh miễn phí nào.
-
-### Cách 1 – Netlify Drop (nhanh nhất, không cần cài gì)
-1. Mở <https://app.netlify.com/drop>
-2. Kéo thả **cả thư mục** `tic-tac-toe-neon` vào trang
-3. Nhận ngay link dạng `https://ten-ngau-nhien.netlify.app` (có thể đổi tên trong phần Site settings)
-
-### Cách 2 – GitHub Pages
-1. Tạo repository mới trên GitHub, ví dụ `tic-tac-toe-neon`
-2. Đẩy code lên:
-   ```bash
-   git init
-   git add .
-   git commit -m "Neon Tic-Tac-Toe"
-   git branch -M main
-   git remote add origin https://github.com/<tên-bạn>/tic-tac-toe-neon.git
-   git push -u origin main
-   ```
-3. Vào **Settings → Pages** → *Source*: `Deploy from a branch` → Branch `main`, thư mục `/ (root)` → Save
-4. Sau khoảng 1 phút, game có tại `https://<tên-bạn>.github.io/tic-tac-toe-neon/`
-
-## Tiến độ
-
-- [x] **Bước 1** – Bàn cờ, luật chơi 2 người, Undo, test
-- [x] **Bước 2** – Minimax, độ khó Dễ/Vừa/Khó, gợi ý nước đi, chọn đi trước/sau
-- [x] **Bước 3** – Giao diện Neon, hiệu ứng, âm thanh, confetti, thống kê, phím tắt, responsive
-- [ ] Deploy (xem hướng dẫn ở trên)
