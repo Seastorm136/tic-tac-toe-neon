@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Tic-Tac-Toe</title>
+  <meta name="description" content="Tic-Tac-Toe phong cách Neon. Thử thách AI Minimax không bao giờ thua!">
+  <meta name="theme-color" content="#07070d">
+
+  <!-- Thẻ chia sẻ link (Messenger, Zalo, Facebook…) -->
+  <meta property="og:title" content="Neon Tic-Tac-Toe">
+  <meta property="og:description" content="Bạn có thắng nổi AI Minimax không? Vào chơi thử!">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2307070d'/%3E%3Cpath d='M22 22 46 46M46 22 22 46' stroke='%2300f0ff' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='66' cy='66' r='14' fill='none' stroke='%23ff2bd6' stroke-width='9'/%3E%3C/svg%3E">
+
+  <!-- Orbitron chỉ dùng cho tiêu đề vì font này không có dấu tiếng Việt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/board.css">
+  <link rel="stylesheet" href="css/effects.css">
+</head>
+<body>
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+  <main class="app">
+    <button id="mute-btn" class="icon-btn mute-btn" type="button" aria-label="Tắt tiếng" aria-pressed="false">🔊</button>
+
+    <h1 class="title">Neon <span>Tic-Tac-Toe</span></h1>
+
+    <form id="settings" class="settings" aria-label="Cài đặt ván đấu">
+      <div class="segmented" role="radiogroup" aria-label="Chế độ chơi">
+        <label>
+          <input type="radio" name="mode" value="pve" checked>
+          <span>🤖 Đấu AI</span>
+        </label>
+        <label>
+          <input type="radio" name="mode" value="pvp">
+          <span>👥 2 người</span>
+        </label>
+      </div>
+
+      <div id="ai-options" class="ai-options">
+        <label class="field">
+          <span>Độ khó</span>
+          <select name="difficulty">
+            <option value="easy">Dễ</option>
+            <option value="medium">Vừa</option>
+            <option value="hard" selected>Khó</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Bạn chơi</span>
+          <select name="humanPlayer">
+            <option value="X" selected>X (đi trước)</option>
+            <option value="O">O (đi sau)</option>
+          </select>
+        </label>
+      </div>
+    </form>
+
+    <section class="scoreboard" aria-label="Thống kê">
+      <div id="score-left" class="score">
+        <span class="score__label"></span>
+        <span class="score__value">0</span>
+      </div>
+      <div id="score-draw" class="score">
+        <span class="score__label"></span>
+        <span class="score__value">0</span>
+      </div>
+      <div id="score-right" class="score">
+        <span class="score__label"></span>
+        <span class="score__value">0</span>
+      </div>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <div class="board-wrap">
+      <div id="board" class="board" role="group" aria-label="Bàn cờ"></div>
+      <svg id="win-line" class="win-line" aria-hidden="true">
+        <line pathLength="1"></line>
+      </svg>
+    </div>
+
+    <div class="controls">
+      <button id="undo-btn" class="btn" type="button">↶ Đi lại</button>
+      <button id="hint-btn" class="btn btn--hint" type="button">💡 Gợi ý</button>
+      <button id="reset-btn" class="btn btn--primary" type="button">⟳ Ván mới</button>
+    </div>
+
+    <footer class="footer">
+      <p class="shortcuts">
+        Phím tắt: <kbd>1</kbd>–<kbd>9</kbd> đánh · <kbd>H</kbd> gợi ý · <kbd>U</kbd> đi lại · <kbd>N</kbd> ván mới
+      </p>
+      <button id="reset-stats-btn" class="link-btn" type="button">Xóa thống kê</button>
+    </footer>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

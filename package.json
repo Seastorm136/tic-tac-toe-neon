@@ -1,0 +1,11 @@
+{
+  "name": "tic-tac-toe-neon",
+  "version": "1.0.0",
+  "description": "Tic-Tac-Toe phong cách Neon với AI Minimax",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "start": "npx --yes serve ."
+  }
+}

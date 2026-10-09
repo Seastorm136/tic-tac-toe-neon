@@ -1,0 +1,255 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse 60% 45% at 12% 8%, rgb(0 240 255 / 0.12), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 88% 92%, rgb(255 43 214 / 0.12), transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* Sàn lưới phối cảnh kiểu synthwave */
+body::before {
+  content: "";
+  position: fixed;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 42vh;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgb(255 43 214 / 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 43 214 / 0.28) 1px, transparent 1px);
+  background-size: 52px 52px;
+  transform: perspective(260px) rotateX(58deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, black 10%, transparent 90%);
+  pointer-events: none;
+}
+
+.app {
+  position: relative;
+  width: min(100%, 560px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 60px 16px 24px; /* chừa chỗ cho nút tắt tiếng ở góc trên */
+}
+
+/* ── Tiêu đề biển hiệu neon ── */
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 7vw, 2.5rem);
+  line-height: 1.25;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #d9fdff;
+  text-shadow: var(--glow-x);
+}
+
+.title span {
+  display: inline-block; /* chỉ xuống dòng giữa "Neon" và "Tic-Tac-Toe" */
+  white-space: nowrap;
+  color: #ffe3f8;
+  text-shadow: var(--glow-o);
+  animation: flicker 7s linear infinite;
+}
+
+/* ── Dòng trạng thái ── */
+.status {
+  min-height: 1.6em;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+
+.status[data-player="X"] { color: var(--neon-x); text-shadow: 0 0 12px rgb(0 240 255 / 0.55); }
+.status[data-player="O"] { color: var(--neon-o); text-shadow: 0 0 12px rgb(255 43 214 / 0.55); }
+.status--thinking { animation: breathe 1.2s ease-in-out infinite; }
+
+/* ── Bảng điểm ── */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: min(100%, 380px);
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 6px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  --score-color: var(--text);
+}
+
+.score[data-player="X"] { --score-color: var(--neon-x); border-color: rgb(0 240 255 / 0.3); }
+.score[data-player="O"] { --score-color: var(--neon-o); border-color: rgb(255 43 214 / 0.3); }
+
+.score__label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.score__value {
+  font-family: var(--font); /* Orbitron vẽ số 0 có gạch chéo, nhìn như icon "cấm" */
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--score-color);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--score-color) 60%, transparent);
+}
+
+.score--bump .score__value {
+  animation: bump 0.45s ease-out;
+}
+
+/* ── Nút ── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: 1px solid var(--grid-line);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  --btn-color: var(--neon-x);
+}
+
+.btn--hint { --btn-color: var(--neon-win); }
+.btn--primary { --btn-color: var(--neon-o); }
+
+.btn:hover:not(:disabled) {
+  border-color: var(--btn-color);
+  color: var(--btn-color);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--btn-color) 35%, transparent);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--grid-line);
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.icon-btn:hover {
+  border-color: var(--neon-x);
+  box-shadow: 0 0 12px rgb(0 240 255 / 0.35);
+}
+
+.mute-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.link-btn {
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link-btn:hover {
+  color: var(--neon-o);
+}
+
+/* ── Chân trang ── */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.shortcuts {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 1px 5px;
+  border: 1px solid var(--grid-line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--bg-elevated);
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* Thiết bị cảm ứng không có bàn phím → ẩn gợi ý phím tắt */
+@media (hover: none) {
+  .shortcuts { display: none; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--neon-win);
+  outline-offset: 2px;
+}
+
+@media (max-width: 420px) {
+  .app { gap: 14px; }
+  .btn { padding: 9px 14px; }
+}

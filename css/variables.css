@@ -1,0 +1,22 @@
+/* Bảng màu, hiệu ứng phát sáng & kích thước dùng chung */
+:root {
+  --bg: #07070d;
+  --bg-elevated: rgb(18 18 32 / 0.8);
+  --grid-line: #25253d;
+  --text: #e8e8f4;
+  --text-dim: #8b8ba7;
+
+  --neon-x: #00f0ff;   /* cyan */
+  --neon-o: #ff2bd6;   /* magenta */
+  --neon-win: #f9f871; /* vàng */
+
+  --glow-x: 0 0 4px rgb(0 240 255 / 0.9), 0 0 16px rgb(0 240 255 / 0.55), 0 0 32px rgb(0 240 255 / 0.3);
+  --glow-o: 0 0 4px rgb(255 43 214 / 0.9), 0 0 16px rgb(255 43 214 / 0.55), 0 0 32px rgb(255 43 214 / 0.3);
+
+  --cell-size: min(26vw, 116px);
+  --gap: 10px;
+  --radius: 14px;
+
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Orbitron", var(--font); /* chỉ dùng cho chữ không dấu */
+}

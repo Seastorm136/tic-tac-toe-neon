@@ -1,0 +1,56 @@
+/* Toàn bộ keyframes và lớp confetti */
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes draw-stroke {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes win-pulse {
+  from { box-shadow: 0 0 6px currentColor, inset 0 0 6px currentColor; }
+  to   { box-shadow: 0 0 22px currentColor, inset 0 0 16px currentColor; }
+}
+
+@keyframes hint-pulse {
+  50% { box-shadow: 0 0 0 4px rgb(249 248 113 / 0.25), 0 0 18px rgb(249 248 113 / 0.45); }
+}
+
+@keyframes shake {
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes bump {
+  40% { transform: scale(1.35); }
+}
+
+@keyframes breathe {
+  50% { opacity: 0.55; }
+}
+
+/* Biển hiệu neon chập chờn */
+@keyframes flicker {
+  0%, 18%, 20%, 22%, 52%, 54%, 100% { opacity: 1; }
+  19%, 21%, 53% { opacity: 0.45; }
+}
+
+/* Người dùng bật "giảm chuyển động" trong hệ điều hành → tắt gần hết animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
